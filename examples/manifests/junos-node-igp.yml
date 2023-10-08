@@ -1,0 +1,206 @@
+version: 0.1.0
+head: 
+  _cat: "2023-08-11T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "seung"
+  _cemail: "seungil.lee@global.ntt"
+  _template-type": "node"
+info:
+  title: MPLS/IP backbone node at TH - IGP layer
+  version: 0.1.0
+  description: 
+components:
+  - component:
+    group: igp
+    name: protocol isis
+    template: ./templates/junos/igp/igp_protocols_isis.conf
+  - component:
+    group: igp
+    name: protocol isis interface - loopback
+    template: ./templates/junos/igp/igp_protocols_isis_interface.conf
+    tags: 
+      - name: interface_name
+        type: interface
+        value: lo0.0
+      - name: level1_attributes
+        type: string
+        value: disable
+      - name: level2_attributes
+        type: string
+        value: metric 0
+      - name: is_passive
+        type: string
+        value: passive
+  - component:
+    group: igp
+    name: protocol isis interface - ae0
+    template: ./templates/junos/igp/igp_protocols_isis_interface.conf
+    tags: 
+      - name: interface_name
+        type: interface
+        value: ae0.0
+      - name: level1_attributes
+        type: string
+        value: disable
+      - name: level2_attributes
+        type: string
+        value: metric 2000
+      - name: p2p
+        type: string
+        value: point-to-point
+  - component:
+    group: igp - interfaces
+    name: BB interface - ae0
+    template: ./templates/junos/interface/interfaces_interface.conf
+    tags: 
+      - name: interface_name
+        type: interface
+        value: ae0
+      - name: type
+        type: string
+        value: BB
+      - name: description
+        type: string
+        value: r01.bngkth02.th.bb.eis.ntt.net ae0
+      - name: mtu
+        type: string
+        value: 9192
+    sub-components:
+      - component:
+        name: aggregation options
+        template: ./templates/junos/interface/interfaces_ae_agg_options.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: ae0
+          - name: link_speed
+            type: string
+            value: 10g
+      - component:
+        name: interface unit - v4
+        template: ./templates/junos/interface/interfaces_interface_unit.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: ae0
+          - name: unit_number
+            type: string
+            value: 0
+          - name: family
+            type: string
+            value: inet
+          - name: no_redirects
+            type: string
+            value: no-redirects
+          - name: interface_filter_input
+            type: string
+            value: BB_intf_filt
+          - name: address
+            type: ipv4
+            value: 
+      - component:
+        name: interface unit - v6
+        template: ./templates/junos/interface/interfaces_interface_unit.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: ae0
+          - name: unit_number
+            type: string
+            value: 0
+          - name: family
+            type: string
+            value: inet6
+          - name: interface_filter_input
+            type: string
+            value: BB_intf_filt_v6
+          - name: address
+            type: ipv6
+            value: 
+      - component:
+        name: interface - isis
+        template: ./templates/junos/interface/interfaces_interface_unit_family.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: ae0
+          - name: unit_number
+            type: string
+            value: 0
+          - name: family
+            type: string
+            value: iso
+      - component:
+        name: interface - mpls
+        template: ./templates/junos/interface/interfaces_interface_unit_family.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: ae0
+          - name: unit_number
+            type: string
+            value: 0
+          - name: family
+            type: string
+            value: mpls
+      - component:
+        name: interface - physical
+        template: ./templates/junos/interface/interfaces_ae_interface.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: xe-1/0/0
+          - name: type
+            type: string
+            value: BB
+          - name: description
+            type: string
+            value: r01.bngkth02.th.bb.eis.ntt.net xe-1/0/0 - bundle:ae0
+          - name: aggr_interface_name
+            type: interface
+            value: ae0
+      - component:
+        name: interface - physical
+        template: ./templates/junos/interface/interfaces_ae_interface.conf
+        tags:
+          - name: interface_name
+            type: interface
+            value: xe-1/0/1
+          - name: type
+            type: string
+            value: BB
+          - name: description
+            type: string
+            value: r01.bngkth02.th.bb.eis.ntt.net xe-1/0/1 - bundle:ae0
+          - name: aggr_interface_name
+            type: interface
+            value: ae0
+  - component:
+    group: igp - interfaces
+    name: BB interface - loopback
+    template: ./templates/junos/interface/interfaces_interface_lo.conf
+    tags: 
+      - name: interface_name
+        type: interface
+        value: lo0
+      - name: type
+        type: string
+        value: BM
+      - name: description
+        type: string
+        value: loopback - virtual
+      - name: filter_v4
+        type: string
+        value: local
+      - name: filter_v6
+        type: string
+        value: local6
+      - name: address_v4
+        type: ipv4
+        value: 
+      - name: address_iso
+        type: string
+        value: 
+      - name: address_v6
+        type: ipv6
+        value: 

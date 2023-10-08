@@ -1,0 +1,104 @@
+version: 0.1.0
+head: 
+  _cat: "2023-08-11T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "seung"
+  _cemail: "seungil.lee@global.ntt"
+  _template-type": "node"
+info:
+  title: MPLS/IP backbone node at TH - MPLS layer
+  version: 0.1.0
+  description: 
+components:
+  - component:
+    group: mpls
+    name: protocol mpls lsp
+    template: ./templates/junos/mpls/mpls_groups_lsp.conf
+  - component:
+    group: mpls
+    name: protocol mpls
+    template: ./templates/junos/mpls/mpls_protocols_mpls.conf
+    sub-components:
+      - component:
+        name: loopback
+        template: ./templates/junos/mpls/mpls_protocols_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: mpls
+          - name: interface_name
+            type: interface
+            value: lo0.0
+      - component:
+        name: BB link
+        template: ./templates/junos/mpls/mpls_protocols_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: mpls
+          - name: interface_name
+            type: interface
+            value: ae0.0
+      - component:
+        name: lsp pri
+        template: ./templates/junos/mpls/mpls_protocols_mpls_lsp.conf
+        tags:
+          - name: src_node
+            type: string
+            value: r00.bngkth01
+          - name: dest_node
+            type: string
+            value: r02.bngkth02
+          - name: dest_address_ipv4
+            type: ipv4
+            value: 
+  - component:
+    group: mpls
+    name: protocol ldp
+    template: ./templates/junos/mpls/mpls_protocols_mpls_ldp.conf
+    sub-components:
+      - component:
+        name: loopback
+        template: ./templates/junos/mpls/mpls_protocols_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: ldp
+          - name: interface_name
+            type: interface
+            value: lo0.0
+      - component:
+        name: BB link
+        template: ./templates/junos/mpls/mpls_protocols_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: ldp
+          - name: interface_name
+            type: interface
+            value: ae0.0
+  - component:
+    group: mpls
+    name: protocol rsvp
+    template: ./templates/junos/mpls/mpls_protocols_mpls_rsvp.conf
+    sub-components:
+      - component:
+        name: loopback
+        template: ./templates/junos/mpls/mpls_protocols_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: rsvp
+          - name: interface_name
+            type: interface
+            value: lo0.0
+      - component:
+        name: BB link
+        template: ./templates/junos/mpls/mpls_protocols_rsvp_interface.conf
+        tags:
+          - name: protocol
+            type: string
+            value: rsvp
+          - name: interface_name
+            type: interface
+            value: ae0.0

@@ -1,0 +1,22 @@
+[project]
+name = "nweng"
+version = "0.1.0"
+authors = [
+  { name="Seung Lee", email="seung.lee@objectag.co" }
+]
+description = "nweng."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/objectag/nweng"
+"Bug Tracker" = "https://github.com/objectag/nweng/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"

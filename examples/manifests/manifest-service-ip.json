@@ -1,0 +1,64 @@
+{
+  "version": "0.1.0",
+  "info": {
+    "title": "IP service",
+    "version": "0.1.0"
+  },
+  "head": {
+      "_cat": "2021-11-12T10:58:08",
+      "_chost": "3.24.226.186",
+      "_cname": "sophie",
+      "_cemail": "sophie.park@global.ntt",
+      "_templateType": "service"
+  },
+  "body": {
+      "augid": "163c4b1c",
+      "name": "ntt_cloud_infrastructure",
+      "ausid": "1d10ac74",
+      "status": "inservice",
+      "dateProvisionStart": "2021-11-12",
+      "dateInService": "2021-11-22",
+      "dateTerminated": "",
+      "description": "",
+      "serviceType": "ip"
+  },
+  "config-template": "services/service-ip",
+  "config": {
+      "node": "dm04.melbau02.mpl",
+      "mrtgId": "",
+      "lag": "",
+      "ip-option": "ipv4",
+      "links": [
+          {
+              "portId": "05c6d598",
+              "aupid": "351a4a4a",
+              "description": "",
+              "bandwidth": "100000000",
+              "vlan": "46",
+              "carrier": "(local wire|carrier name+cid)",
+              "nodePort": "ae2.46",
+              "nodePortSubint": "True",
+              "asw": "s00.melbau02.mpl",
+              "aswPortUplink": "ae0",
+              "aswPort": "ge-0/0/12",
+              "aswPortTrunk": "False",
+              "nodeIpv4Addr": "202.9.112.92/31",
+              "nodeIpv6Addr": ""
+          }
+      ],
+      "routing": {
+          "protocol": "bgp",
+          "asn": "139760",
+          "asSet": "",
+          "routeSet": "rs-nttcloudinfra-au",
+          "transitType": "def",
+          "peerIpv4Addr": "202.9.112.93",
+          "peerIpv6Addr": "",
+          "authKey": "mel163c4b1c05c6d598",
+          "assignedPrefixes": [
+              "202.9.115.32/28"
+          ],
+          "staticPrefixes": []
+      }
+  }
+}

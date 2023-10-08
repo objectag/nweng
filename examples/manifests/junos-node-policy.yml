@@ -1,0 +1,17 @@
+version: 0.1.0
+head: 
+  _cat: "2023-08-11T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "seung"
+  _cemail: "seungil.lee@global.ntt"
+  _template-type": "node"
+info:
+  title: MPLS/IP backbone node at TH - Policy layer
+  version: 0.1.0
+  description: 
+components:
+  - component:
+    group: policy
+    name: policy options
+    template: ./templates/junos/policy/policy_policy-options.min.conf
+  

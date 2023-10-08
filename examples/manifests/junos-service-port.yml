@@ -1,0 +1,63 @@
+version: 0.1.0
+head: 
+  _cat: "2021-11-12T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "username"
+  _cemail: "username@example.com"
+  _template-type": "service"
+info:
+  title: Network Service Port
+  version: 0.1.0
+  description: test
+components:
+  - component:
+    group: meta  # group has pre-defined or user-defined field value. 'meta' is pre-defined field
+    name: service-info
+    body:
+      augid: "1abcb196"
+      aupid: "2c14cc7e"
+      portType: "private"
+      customer-name: "foo"
+      service-status:
+        status: "inservice"
+        date-provision-start: "2018-07-11"
+        date-inservice: "2018-07-11"
+        date-terminated: ""
+      description: ""
+  - component:
+    group: config # 'config' is user-defined field value
+    name: port-config
+    template: ./templates/junos/infra_service_port.conf
+    tags: 
+      - name: gid
+        type: sid
+        value: 1abcb196
+      - name: pid
+        type: sid
+        value: 2c14cc7e
+      - name: interface
+        type: interface
+        value: ge-1/0/2
+      - name: pop
+        type: string
+        value: mel02
+      - name: description
+        type: string
+        value: customer foo
+    body:
+      interface:  
+        node: "r04.mel02.bb"
+        asw: "s090.mel02.bb"
+        mrtg-id: ""
+        lag: ""
+        speed: "1g"
+        name: "ge-1/0/2"
+        trunk: "True"
+        description: 
+      demarcation:
+        pop: "mel2"
+        panel: "_panel_"
+        port: "_port_"
+        cableType: "copper"
+        connectorType: "_connectorType_"
+        description: "local wire"

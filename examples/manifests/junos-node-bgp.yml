@@ -1,0 +1,50 @@
+version: 0.1.0
+head: 
+  _cat: "2023-08-11T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "seung"
+  _cemail: "seungil.lee@global.ntt"
+  _template-type": "node"
+info:
+  title: MPLS/IP backbone node at TH - BGP layer
+  version: 0.1.0
+  description: 
+components:
+  - component:
+    group: bgp
+    name: protocol bgp
+    template: ./templates/junos/bgp/bgp_protocols_bgp.conf
+    tags:
+      - name: ibgp_asn
+        type: string
+        value: 38566
+      - name: address_local_v4
+        type: ipv4
+        value: 116.68.145.1
+      - name: address_local_v6
+        type: ipv6
+        value: 2403:2800::1
+      - name: address_neighbor_v4
+        type: ipv4
+        value: 116.68.145.2
+      - name: address_neighbor_v6
+        type: ipv6
+        value: 2403:2800::2
+      - name: ibgp_auth_key
+        type: string
+        value:
+    sub-components:
+      - component:
+        name: minimum routing options
+        template: ./templates/junos/bgp/bgp_routing-options.conf
+        tags:
+          - name: asn
+            type: string
+            value: 38566
+          - name: interface_name
+            type: interface
+            value: lo0.0
+          - name: local_address_v4
+            type: ipv4
+            value: 
+  

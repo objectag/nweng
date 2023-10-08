@@ -1,0 +1,134 @@
+version: 0.1.0
+head: 
+  _cat: "2023-08-11T10:58:08"
+  _chost: "192.168.0.100"
+  _cname: "seung"
+  _cemail: "seungil.lee@global.ntt"
+  _template-type": "node"
+info:
+  title: MPLS/IP backbone node at TH - Infra layer
+  version: 0.1.0
+  description: 
+components:
+  - component:
+    group: infra
+    name: routing-engine
+    template: ./templates/junos/infra/infra_groups_re.conf
+    tags: 
+      - name: hostname
+        type: string
+        value: r01
+      - name: pop
+        type: string
+        value: syd02
+      - name: country_code
+        type: string
+        value: au
+  - component:
+    group: infra
+    name: snmp
+    template: ./templates/junos/infra/infra_snmp.conf
+    tags: 
+      - name: pop
+        type: string
+        value: bngkth01
+      - name: contact
+        type: email
+        value: 
+      - name: community
+        type: string
+        value: 
+      - name: ip_a
+        type: ipv4
+        value: 
+      - name: ip_b
+        type: ipv4
+        value: 
+  - component:
+    group: infra
+    name: system
+    template: ./templates/junos/infra/infra_system.conf
+    tags: 
+      - name: dns_name
+        type: string
+        value: eis.ntt.net
+      - name: list_dns_names
+        type: string
+        value: eis.ntt.net bb.eis.ntt.net bngkth01.bb.eis.ntt.net 
+      - name: x_ns_gin
+        type: ipv4
+        value: 129.250.35.250
+      - name: y_ns_gin
+        type: ipv4
+        value: 129.250.35.251
+  - component:
+    group: infra
+    name: system_syslog_host
+    template: ./templates/junos/infra/infra_system_syslog_host.conf
+    tags: 
+      - name: hostname
+        type: string
+        value:
+      - name: host_ipv4
+        type: ipv4
+        value:
+  - component:
+    group: infra
+    name: system_syslog_host
+    template: ./templates/junos/infra/infra_system_syslog_host.conf
+    tags: 
+      - name: hostname
+        type: string
+        value:
+      - name: host_ipv4
+        type: ipv4
+        value:
+  - component:
+    group: infra
+    name: chassis
+    template: ./templates/junos/infra/infra_chassis.conf
+  - component:
+    group: infra
+    name: forwarding-options_sampling
+    template: ./templates/junos/infra/infra_forwarding-options_sampling.conf
+    tags: 
+      - name: rate
+        type: string
+        value: 5000
+      - name: run_length
+        type: string
+        value: 0
+      - name: max_pkt_sec
+        type: string
+        value: 10000
+  - component:
+    group: infra
+    name: forwarding-options_sampling_flow-server
+    template: ./templates/junos/infra/infra_forwarding-options_sampling_flow-server.conf
+    tags: 
+      - name: description
+        type: string
+        value: 
+      - name: flow_server_ipv4
+        type: ipv4
+        value: 
+      - name: port
+        type: string
+        value: 9995
+      - name: as_type
+        type: string
+        value: origin
+      - name: source_addr_ipv4
+        type: ipv4
+        value: 
+      - name: version
+        type: string
+        value: 5
+  - component:
+    group: infra
+    name: policy-options_prefix-list
+    template: ./templates/junos/infra/infra_policy-options_prefix-list.conf
+  - component:
+    group: infra
+    name: firewall_filter
+    template: ./templates/junos/infra/infra_firewall_filter.conf
