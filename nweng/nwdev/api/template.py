@@ -8,6 +8,9 @@ import warnings
 
 from nweng.nwdev.api.types import TagProcessor
 
+class TemplatingError(Exception):
+    pass
+
 
 class Template:
     def __init__(self):
@@ -36,8 +39,17 @@ class Template:
         self.components = []
 
     def load(self, file_path):
-        with open(file_path, 'r') as file:
-            data = yaml.safe_load(file)
+        try:
+            with open(file_path, 'r') as file:
+                data = yaml.safe_load(file)
+        except FileNotFoundError as fnf_error:
+            raise TemplatingError(f"File {file_path} not found.") from fnf_error
+            #print(f"File {file_path} not found.")
+            #return None
+        except yaml.YAMLError as yaml_error:
+            raise TemplatingError(f"Error occurred while parsing YAML: {yaml_error}") from yaml_error
+            #print(f"Error occurred while parsing YAML: {exc}")
+            #return None
 
         self.version = data.get("version")
         self.head = data.get("head")
@@ -49,16 +61,19 @@ class Template:
     def render(self):
         processed_templates = []
 
-        for component in self.components:
-            if 'component' in component:
-                if 'template' in component:
-                    processed_templates.append(self.__process_template(component.get('template'), component.get('tags')))
+        try:
+            for component in self.components:
+                if 'component' in component:
+                    if 'template' in component:
+                        processed_templates.append(self.__process_template(component.get('template'), component.get('tags')))
 
-                if 'sub-components' in component:
-                    sub_component_data = component['sub-components']
-                    for sub_component in sub_component_data:
-                        if 'template' in sub_component:
-                            processed_templates.append(self.__process_template(sub_component.get('template'), sub_component.get('tags')))
+                    if 'sub-components' in component:
+                        sub_component_data = component['sub-components']
+                        for sub_component in sub_component_data:
+                            if 'template' in sub_component:
+                                processed_templates.append(self.__process_template(sub_component.get('template'), sub_component.get('tags')))
+        except Exception as error:
+            raise TemplatingError(f"An error occurred while rendering: {error}") from error           
 
         return ''.join(processed_templates)
 
