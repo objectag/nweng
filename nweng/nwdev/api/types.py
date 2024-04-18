@@ -9,7 +9,8 @@ class TagProcessor:
             'ipv4': self.validate_ipv4,
             'ipv6': self.validate_ipv6,
             'interface': self.validate_interface,
-            'sid': self.validate_sid
+            'sid': self.validate_sid,
+            'asn': self.validate_asnumber
         }
 
     def validate_string(self, tag_value):
@@ -79,12 +80,24 @@ class TagProcessor:
         except:
             return '<<InvalidEmail>>'
 
-
     def validate_sid(self, tag_value):
-        if not re.match("^^([a-f]|[0-9]){8}$", tag_value):
-            msg = "invalid input: " + id + " - valid: 8 hexadecimal digits"
-            return '<<InvalidSID>>'
-        return tag_value
+        try:
+            if re.match("^^([a-f]|[0-9]){8}$", tag_value):
+                return tag_value
+            else:
+                return '<<InvalidSID>>'
+        except (TypeError):
+                return '<<InvalidSID>>'
+    
+    def validate_asnumber(self, tag_value):
+        try:
+            input_value = int(tag_value)
+            if 1 <= input_value <= 4294967295:
+                return tag_value
+            else:
+                return '<<InvalidASN>>'
+        except (TypeError):
+            return '<<InvalidASN>>'
 
     def check_tag_value(self, tag_type, tag_value):
         validator_func = self.type_validators.get(tag_type, self.unknown_type_validator)
