@@ -7,24 +7,26 @@
 
 ## Installation
 
-You can install `nweng` using pip (from the project root):
+**Note:** This package is **not published on PyPI**. To install, clone the repository or use pip with the GitHub URL.
+
+**Install from a local clone:**
 
 ```bash
+git clone https://github.com/objectag/nweng.git
+cd nweng
 pip install .
+```
+
+**Or install directly from GitHub:**
+
+```bash
+pip install git+https://github.com/objectag/nweng.git
 ```
 
 For development (editable install):
 
 ```bash
 pip install -e .
-```
-
-Or clone the repository and install dependencies manually:
-
-```bash
-git clone https://github.com/objectag/nweng.git
-cd nweng
-pip install .
 ```
 
 ## Features
