@@ -33,13 +33,6 @@ pip install .
 - **Tag Validation**: Supports types like string, email, IPv4/IPv6, interface, SID, ASN, with built-in validation.
 - **Extensible API**: Modular design for easy extension and integration.
 
-## Project Structure
-- `nweng/nwdev/`: Core logic and API
-  - `api/`: Templating, tag types, and API implementation
-  - `index.md`: Documentation for YAML manifest structure
-- `nweng/nwops/`: (Reserved for operational modules)
-- `nweng/nwdev/test/`: (Reserved for tests)
-
 ## YAML Manifest Specification
 
 ```
